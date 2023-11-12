@@ -10,5 +10,5 @@ public class EmailSenderSettings
 
     public string Password { get; set; } = default!;
 
-    public string TestValue { get; set; } = string.Empty;
+    public string SenderEmailAddress { get; set; } = string.Empty;
 }

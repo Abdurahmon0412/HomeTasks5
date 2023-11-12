@@ -7,7 +7,7 @@ namespace Identity.Persistance.Repositories.Services;
 
 public class UserRepository : EntityRepositoryBase<User, IdentityDbContext>, IUserRepository
 {
-    public UserRepository(DbContext dbContext) : base(dbContext)
+    public UserRepository(IdentityDbContext dbContext) : base(dbContext)
     {
     }
     

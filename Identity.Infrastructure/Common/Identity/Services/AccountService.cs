@@ -5,7 +5,7 @@ using Identity.Domain.Entities;
 
 namespace Identity.Infrastructure.Common.Identity.Services;
 
-public class AccountService
+public class AccountService : IAccountService
 {
     private readonly IVerificationTokenGeneratorService _verificationTokenGeneratorService;
     private readonly IEmailOrchestrationService _emailOrchestrationService;

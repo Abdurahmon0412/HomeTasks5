@@ -16,10 +16,10 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             FirstName = "John",
             LastName = "Smith",
             Age = 39,
-            EmailAddress = "Nimada@example.com",
+            EmailAddress = "Nimadada@example.com",
             PasswordHash = "asldjfqjewoqwa",
             IsEmailAddressVerified = true,
-            RoleId = Guid.Parse("94E5B7AA-45AD-4267-9A5E-236670A15F82")
+            RoleId = Guid.Parse("7d07ea1f-9be7-48f0-ad91-5b83a5806baf")
         });
     }
 }

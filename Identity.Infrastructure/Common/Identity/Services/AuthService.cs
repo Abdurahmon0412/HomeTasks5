@@ -1,7 +1,6 @@
 ﻿using System.Security.Authentication;
 using Identity.Application.Common.Identity.Models;
 using Identity.Application.Common.Identity.Services;
-using Identity.Application.Common.Notifications.Services;
 using Identity.Domain.Entities;
 using Identity.Domain.Enums;
 using Microsoft.AspNetCore.Http;
@@ -10,7 +9,6 @@ namespace Identity.Infrastructure.Common.Identity.Services;
 
 public class AuthService : IAuthService
 {
-    private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IAccessTokenService _accessTokenService;
     private readonly IRoleService _roleService;
     private readonly IUserService _userService;
@@ -19,7 +17,6 @@ public class AuthService : IAuthService
     private readonly IAccountService _accountService;
 
     public AuthService(
-        IHttpContextAccessor httpContextAccessor,
         IAccessTokenService accessTokenService,
         IRoleService roleService,
         IUserService userService,
@@ -28,7 +25,6 @@ public class AuthService : IAuthService
         IAccountService accountService
     )
     {
-        _httpContextAccessor = httpContextAccessor;
         _accessTokenService = accessTokenService;
         _roleService = roleService;
         _userService = userService;

@@ -10,7 +10,7 @@ public class PasswordGeneratorService
         return new string(Enumerable.Repeat(Chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
     }
     
-    public bool ValidatePassword(string password)
+    public static bool ValidatePassword(string password)
     {
         // Password should be at least 8 characters long
         if (password.Length < 8)

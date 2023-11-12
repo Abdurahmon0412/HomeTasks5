@@ -8,7 +8,7 @@ namespace Identity.Persistance.Repositories.Services;
 
 public class RoleRepository : EntityRepositoryBase<Role, IdentityDbContext>, IRoleRepository
 {
-    public RoleRepository(DbContext dbContext) : base(dbContext)
+    public RoleRepository(IdentityDbContext dbContext) : base(dbContext)
     {
     }
 

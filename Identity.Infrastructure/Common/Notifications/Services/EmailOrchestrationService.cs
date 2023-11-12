@@ -1,18 +1,19 @@
 ﻿using System.Net;
 using System.Net.Mail;
+using Identity.Application.Common.Notifications.Services;
 using Identity.Application.Common.Settings;
 using Microsoft.Extensions.Options;
 
 namespace Identity.Infrastructure.Common.Notifications.Services;
 
-public class EmailOrchestrationService
+public class EmailOrchestrationService : IEmailOrchestrationService
 {
     private readonly EmailSenderSettings _emailSenderSettings;
 
     public EmailOrchestrationService(IOptions<EmailSenderSettings> emailSenderSettings) => 
         _emailSenderSettings = emailSenderSettings.Value;
 
-    public ValueTask<bool> Sendasync(string emailAddress, string message)
+    public ValueTask<bool> SendAsync(string emailAddress, string message)
     {
         var mail = new MailMessage(_emailSenderSettings.CredentialAddress, emailAddress);
         mail.Subject = "Siz muvaffaqiyatli ro'yhatdan o'tdingiz";

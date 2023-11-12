@@ -7,7 +7,7 @@ namespace Identity.Persistance.Repositories.Services;
 
 public class AccessTokenRepository : EntityRepositoryBase<AccessToken, IdentityDbContext>, IAccessTokenRepository  
 {
-    public AccessTokenRepository(DbContext dbContext) : base(dbContext)
+    public AccessTokenRepository(IdentityDbContext dbContext) : base(dbContext)
     {
     }
 
