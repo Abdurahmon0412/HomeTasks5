@@ -22,7 +22,7 @@ public class AuthController : ControllerBase
     public async ValueTask<IActionResult> Register([FromBody] RegistrationDetails registrationDetails,
         CancellationToken cancellationToken)
     {
-        var result = await _authService.RegisterAsync(registrationDetails);
+        var result = await _authService.RegisterAsync(registrationDetails,cancellationToken);
         return Ok(result);
     }
 
