@@ -1,6 +1,13 @@
-﻿namespace Blogs.Persistance.Repostitories.Services;
+﻿using Blogs.Domain.Entities;
+using Blogs.Persistance.DataContext;
+using Blogs.Persistance.Repostitories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
-public class UserRopository
+namespace Blogs.Persistance.Repostitories.Services;
+
+public class UserRopository : EntityRepositoryBase<User, BlogsDbContext>, IUserRepository
 {
-    
+    public UserRopository(DbContext dbContext) : base(dbContext)
+    {
+    }
 }

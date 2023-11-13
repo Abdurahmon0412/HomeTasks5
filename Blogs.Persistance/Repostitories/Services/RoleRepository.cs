@@ -1,6 +1,12 @@
-﻿namespace Blogs.Persistance.Repostitories.Services;
+﻿using Blogs.Domain.Entities;
+using Blogs.Persistance.DataContext;
+using Blogs.Persistance.Repostitories.Interfaces;
 
-public class RoleRepository
+namespace Blogs.Persistance.Repostitories.Services;
+
+public class RoleRepository : EntityRepositoryBase<Role, BlogsDbContext>, IRoleRepostitory
 {
-    
+    public RoleRepository(BlogsDbContext dbContext) : base(dbContext)
+    {
+    }
 }
