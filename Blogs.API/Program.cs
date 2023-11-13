@@ -1,4 +1,3 @@
-
 using Blogs.API.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);

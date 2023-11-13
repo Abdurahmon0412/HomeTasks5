@@ -12,7 +12,7 @@ public class JwtSettings
 
     public string ValidAudience { get; set; } = default!;
 
-    public bool ValidateLifeTime { get; set; }
+    public bool ValidateLifetime { get; set; }
 
     public int ExpirationTimeInMinutes { get; set; }
 

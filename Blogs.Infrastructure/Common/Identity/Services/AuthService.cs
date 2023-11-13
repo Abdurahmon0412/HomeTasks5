@@ -7,7 +7,7 @@ using Blogs.Domain.Enums;
 
 namespace Blogs.Infrastructure.Common.Identity.Services;
 
-partial class AuthService : IAuthService
+public class AuthService : IAuthService
 {
     private readonly IAccessTokenGeneratorService _accessTokenGeneratorService;
     private readonly IAccountService _accountService;

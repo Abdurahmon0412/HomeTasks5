@@ -6,6 +6,9 @@ public static partial class HostConfiguration
     {
         builder
             .AddPersistance()
+            .AddMapping()
+            .AddIdentityInfrastructure()
+            .AddPostsInfrastructure()
             .AddDebTools()
             .AddExposers();
 
@@ -16,7 +19,9 @@ public static partial class HostConfiguration
     {
         app
             .UseDevTools()
-            .UseExposers();
+            .UseExposers()
+            .UseIdentityInfrastructure();
+
         return new ValueTask<WebApplication>(app);
     }
 }
