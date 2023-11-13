@@ -10,7 +10,7 @@ public class Comment : IEntity
     
     public DateTime CreatedTime { get; set; }
     
-    public DateTime ModifiedTime { get; set; } 
+    public DateTimeOffset? ModifiedTime { get; set; } 
     
     public Guid UserId { get; set; }
 

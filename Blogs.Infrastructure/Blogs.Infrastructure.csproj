@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -9,6 +9,16 @@
   <ItemGroup>
     <ProjectReference Include="..\Blogs.Application\Blogs.Application.csproj" />
     <ProjectReference Include="..\Blogs.Persistance\Blogs.Persistance.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Common\ManagamentServices\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+	<PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+
   </ItemGroup>
 
 </Project>
