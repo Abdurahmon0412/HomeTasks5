@@ -35,7 +35,7 @@ public class AuthService : IAuthService
     public async ValueTask<bool> SignUpAsync(SignUpDetails signUpDetails, CancellationToken cancellationToken = default)
     {
         var user = _mapper.Map<User>(signUpDetails);
-        user.PasswordHash = _passwordHasherService.HashPassword(signUpDetails.Password);
+        user.PasswordHash = _passwordHasherService.HashPassword(signUpDetails.PasswordHash);
 
         var role = await _roleService.GetByTypeAsync(RoleType.Reader, true, cancellationToken)
             ?? throw new InvalidOperationException("This role type does not exists");

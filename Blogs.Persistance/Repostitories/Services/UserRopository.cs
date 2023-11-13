@@ -7,7 +7,7 @@ namespace Blogs.Persistance.Repostitories.Services;
 
 public class UserRopository : EntityRepositoryBase<User, BlogsDbContext>, IUserRepository
 {
-    public UserRopository(DbContext dbContext) : base(dbContext)
+    public UserRopository(BlogsDbContext dbContext) : base(dbContext)
     {
     }
 }

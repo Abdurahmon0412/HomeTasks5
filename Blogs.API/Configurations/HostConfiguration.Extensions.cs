@@ -52,7 +52,7 @@ public static partial class HostConfiguration
             .AddScoped<IRoleRepostitory, RoleRepository>()
             .AddScoped<IRoleService, RoleService>()
             .AddScoped<IPasswordHasherService, PasswordHasherService>()
-            .AddScoped<IAccessTokenGeneratorService, IAccessTokenGeneratorService>()
+            .AddScoped<IAccessTokenGeneratorService, AccessTokenGeneratorService>()
             .AddScoped<IAccountService, AccountService>()
             .AddScoped<IAuthService, AuthService>();
 

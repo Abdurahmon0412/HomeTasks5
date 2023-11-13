@@ -3,5 +3,6 @@
 public enum RoleType
 {
     Writer,
-    Reader
+    Reader,
+    Admin
 }
