@@ -11,7 +11,7 @@ public abstract class EntityRepositoryBase<TEntity, TContext> where TEntity : cl
 
     protected EntityRepositoryBase(TContext dbContext) => _dbContext = dbContext;
 
-    protected IQueryable<TEntity> Get(Expression<Func<TEntity, bool>>? predicate = default, bool asNoTracking = false)
+    public IQueryable<TEntity> Get(Expression<Func<TEntity, bool>>? predicate = default, bool asNoTracking = false)
     {
         var initialQuery = DbContext.Set<TEntity>().Where(entity => true);
 
@@ -48,7 +48,7 @@ public abstract class EntityRepositoryBase<TEntity, TContext> where TEntity : cl
         return await initialQuery.ToListAsync();
     }
 
-    protected async ValueTask<TEntity> CreateAsync(TEntity entity, bool saveChanges = true,
+    public async ValueTask<TEntity> CreateAsync(TEntity entity, bool saveChanges = true,
         CancellationToken cancellationToken = default)
     {
         await DbContext.Set<TEntity>().AddAsync(entity, cancellationToken);
