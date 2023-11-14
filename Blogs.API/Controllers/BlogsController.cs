@@ -54,7 +54,7 @@ public class BlogsController : ControllerBase
         var blog = _mapper.Map<Blog>(blogDto);
         blog.UserId = authorId;
 
-        return Ok(await _blogService.CreateAsync(blog,cancellationToken: cancellationToken));
+        return Ok(_mapper.Map<BlogDto>(await _blogService.CreateAsync(blog,cancellationToken: cancellationToken)));
     }
 
     [Authorize(Roles = "Author")]

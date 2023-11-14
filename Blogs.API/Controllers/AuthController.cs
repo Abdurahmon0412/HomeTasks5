@@ -22,7 +22,7 @@ public class AuthController : ControllerBase
     public async ValueTask<IActionResult> SignInAsync([FromBody] SignInDetails signInDetails, CancellationToken cancellationToken) => 
         Ok(await _authService.SignInAsync(signInDetails, cancellationToken));
 
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Writer, Admin, Reader")]
     [HttpPut("users/{userId}/roles/{roleType}")]
     public async ValueTask<IActionResult> GrantRoleAsync([FromRoute] Guid userId, [FromRoute] string roleType, CancellationToken cancellationToken)
     {

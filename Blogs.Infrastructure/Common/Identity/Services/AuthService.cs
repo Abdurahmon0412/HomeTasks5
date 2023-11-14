@@ -40,7 +40,7 @@ public class AuthService : IAuthService
         var role = await _roleService.GetByTypeAsync(RoleType.Reader, true, cancellationToken)
             ?? throw new InvalidOperationException("This role type does not exists");
 
-        user.Role = role;
+        user.RoleId = role.Id;
 
         return await _accountService.CreateUserAsync(user);
     }

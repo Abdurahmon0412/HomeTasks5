@@ -23,6 +23,6 @@ public class RoleService : IRoleService
 
     public ValueTask<Role?> GetByTypeAsync(RoleType type, bool asNoTracking = false, CancellationToken cancellationToken = default) 
         => new(_roleRepository.Get(asNoTracking: asNoTracking)
-            .SingleOrDefault(role => role.Type == type)
+            .FirstOrDefault(role => role.Type == type)
             ?? throw new ArgumentNullException(nameof(Role)));
 }
