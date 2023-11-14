@@ -2,7 +2,7 @@
 using Notifications.Domain.Entities;
 using Notifications.Domain.Enums;
 
-namespace Notifications.Infrastructure.Validatiors;
+namespace Notifications.Infrastructure.Common.Validatiors.EmailValidators;
 
 public class EmailTemplateValidator : AbstractValidator<EmailTemplate>
 {

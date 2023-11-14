@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Notifications.Domain.Entities;
 
-namespace Notifications.Infrastructure.Validatiors;
+namespace Notifications.Infrastructure.Common.Validatiors;
 
 public class NotificationHistoryValidator : AbstractValidator<NotificationHistory>
 {
@@ -14,7 +14,7 @@ public class NotificationHistoryValidator : AbstractValidator<NotificationHistor
 
         RuleFor(template => template.SenderId)
             .NotEmpty();
-        
+
         RuleFor(template => template.ReceiverId)
             .NotEmpty();
     }

@@ -2,7 +2,7 @@
 using Notifications.Domain.Entities;
 using Notifications.Domain.Enums;
 
-namespace Notifications.Infrastructure.Validatiors;
+namespace Notifications.Infrastructure.Common.Validatiors.SmsValidators;
 
 public class SmsTemplateValidator : AbstractValidator<SmsTemplate>
 {
@@ -18,5 +18,5 @@ public class SmsTemplateValidator : AbstractValidator<SmsTemplate>
 
         RuleFor(template => template.NotificationType)
             .Equal(NotificationType.Sms);
-    }   
+    }
 }
