@@ -1,6 +1,6 @@
 ﻿namespace Notifications.Domain.Enums;
 
-public enum NotificationTemplate
+public enum NotificationTemplateType
 {
     SystemWelcomeNotification,
     EmailVerificationNotification
