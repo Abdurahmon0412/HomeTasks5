@@ -8,4 +8,6 @@ public class EmailHistory : NotificationHistory
     {
         NotificationType = Type.Email;
     }
+
+    public string Subject { get; set; } = default!;
 }

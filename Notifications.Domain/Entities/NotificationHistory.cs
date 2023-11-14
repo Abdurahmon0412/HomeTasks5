@@ -12,5 +12,6 @@ public abstract class NotificationHistory : IEntity
 
     public Guid ReceiverId { get; set; }
     
+    public  string Content { get; set; } = default!;
     public NotificationType NotificationType { get; set; }
 }
