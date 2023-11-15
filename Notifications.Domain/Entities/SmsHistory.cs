@@ -1,4 +1,4 @@
-﻿using Type = Notifications.Domain.Enums.NotificationType;
+﻿using Notifications.Domain.Enums;
 
 namespace Notifications.Domain.Entities;
 
@@ -6,6 +6,10 @@ public class SmsHistory : NotificationHistory
 {
     public SmsHistory()
     {
-        NotificationType = Type.Sms;
+        Type = NotificationType.Sms;
     }
+
+    public string SenderPhoneNumber { get; set; } = default!;
+    
+    public  string ReceiverPhoneNumber { get; set; } = default!;
 }

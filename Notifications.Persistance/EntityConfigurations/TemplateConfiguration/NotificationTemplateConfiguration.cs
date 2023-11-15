@@ -10,11 +10,14 @@ public class NotificationTemplateConfiguration : IEntityTypeConfiguration<Notifi
 {
     public void Configure(EntityTypeBuilder<NotificationTemplate> builder)
     {
-        builder.Property(template => template.Content).HasMaxLength(256);
-        
+        builder.Property(template => template.Content).HasMaxLength(129_536);
+
+        builder.HasIndex(template => template.TemplateType).IsUnique();
+
         builder
-            .HasDiscriminator(template => template.NotificationType)
-            .HasValue<SmsTemplate>(NotificationType.Sms)
-            .HasValue<EmailTemplate>(NotificationType.Email);
+            .ToTable("NotificationTemplates")
+            .HasDiscriminator(emailTemplate => emailTemplate.Type)
+            .HasValue<EmailTemplate>(NotificationType.Email)
+            .HasValue<SmsTemplate>(NotificationType.Sms);
     }
 }

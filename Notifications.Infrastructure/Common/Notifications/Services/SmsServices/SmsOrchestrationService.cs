@@ -25,8 +25,8 @@ public class SmsOrchestrationService : ISmsOrchestrationService
 
 
     public async ValueTask<FuncResult<bool>> SendAsync(
-        User senderUser,
-        User receiverUser, NotificationTemplateType templateType, 
+        string  senderPhoneNumber,
+        string receiverPhoneNumber, NotificationTemplateType templateType, 
         Dictionary<string, string> variables, 
         CancellationToken cancellationToken = default)
     {
@@ -38,14 +38,14 @@ public class SmsOrchestrationService : ISmsOrchestrationService
 
             var message = _smsRenderService.RenderMessage(template, variables);
 
-            await _smsSenderService.SendAsync(senderUser.PhoneNumber, receiverUser.PhoneNumber, message, cancellationToken);
+            await _smsSenderService.SendAsync(senderPhoneNumber, receiverPhoneNumber, message, cancellationToken);
 
             var smsHistory = new SmsHistory
             {
-                SenderId = senderUser.Id,
-                ReceiverId = receiverUser.Id,
+                SenderPhoneNumber = senderPhoneNumber,
+                ReceiverPhoneNumber = receiverPhoneNumber,
                 Content = message,
-                NotificationType = NotificationType.Sms,
+                Type = NotificationType.Sms,
             };
 
             await _smsHistoryService.CreateAsync(smsHistory, true, cancellationToken);

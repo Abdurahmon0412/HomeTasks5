@@ -1,6 +1,8 @@
-﻿namespace Notifications.Application.Commoon.Notifications.Services.SmsServices;
+﻿using Notifications.Application.Commoon.Notifications.Models;
+
+namespace Notifications.Application.Commoon.Notifications.Services.SmsServices;
 
 public interface ISmsRenderService
 {
-    string RenderMessage(string template, Dictionary<string, string> variables);
+    ValueTask<string> RenderAsync(SmsMessage message, CancellationToken cancellationToken = default);
 }

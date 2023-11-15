@@ -9,7 +9,7 @@ public class SmsHistoryValidator : AbstractValidator<SmsHistory>
     public SmsHistoryValidator(IValidator<NotificationHistory> validator)
     {
         Include(validator);
-        RuleFor(template => template.NotificationType)
+        RuleFor(template => template.Type)
             .Equal(NotificationType.Sms);
     }
 }

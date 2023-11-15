@@ -9,10 +9,15 @@ public class NotificationHistoryConfiguration : IEntityTypeConfiguration<Notific
 {
     public void Configure(EntityTypeBuilder<NotificationHistory> builder)
     {
-        builder.Property(template => template.Content);
+        builder.Property(template => template.Content).HasMaxLength(129_536);
 
-        builder.HasDiscriminator(template => template.NotificationType)
-            .HasValue<SmsHistory>(NotificationType.Sms)
-            .HasValue<EmailHistory>(NotificationType.Email);
+        builder.ToTable("NotificationHistories")
+            .HasDiscriminator(history => history.Type)
+            .HasValue<EmailHistory>(NotificationType.Email)
+            .HasValue<SmsHistory>(NotificationType.Sms);
+
+        builder.HasOne<NotificationTemplate>(history => history.Template)
+            .WithMany(template => template.Histories)
+            .HasForeignKey(history => history.TemplateId);
     }
 }

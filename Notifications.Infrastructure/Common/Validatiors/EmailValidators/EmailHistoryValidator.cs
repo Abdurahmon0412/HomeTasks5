@@ -10,7 +10,7 @@ public class EmailHistoryValidator : AbstractValidator<EmailHistory>
     {
         Include(validator);
 
-        RuleFor(template => template.NotificationType)
+        RuleFor(template => template.Type)
             .Equal(NotificationType.Email)
             .WithMessage("Sms template notification type must be Sms");
 

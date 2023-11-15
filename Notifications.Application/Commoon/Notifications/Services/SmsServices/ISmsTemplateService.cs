@@ -1,13 +1,18 @@
 ﻿using System.Linq.Expressions;
 using Notifications.Application.Commoon.Models.Querying;
 using Notifications.Domain.Entities;
+using Notifications.Domain.Enums;
 
 namespace Notifications.Application.Commoon.Notifications.Services;
 
 public interface ISmsTemplateService
 {
-    IQueryable<SmsTemplate> Get(Expression<Func<SmsTemplate, bool>>? predicate = default, bool asNoTracking = false);
-
+    ValueTask<SmsTemplate?> GetByTypeAsync(
+        NotificationTemplateType templateType,
+        bool asNoTracking = false,
+        CancellationToken cancellationToken = default
+    );
+    
     ValueTask<IList<SmsTemplate>> GetByFilterAsync(
         FilterPagination paginationOptions,
         bool asNoTracking = false,

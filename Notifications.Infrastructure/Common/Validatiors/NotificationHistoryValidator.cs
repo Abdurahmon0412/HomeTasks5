@@ -12,10 +12,10 @@ public class NotificationHistoryValidator : AbstractValidator<NotificationHistor
             .MinimumLength(5)
             .MaximumLength(1000);
 
-        RuleFor(template => template.SenderId)
+        RuleFor(template => template.SenderUserId)
             .NotEmpty();
 
-        RuleFor(template => template.ReceiverId)
+        RuleFor(template => template.ReceiverUserId)
             .NotEmpty();
     }
 }

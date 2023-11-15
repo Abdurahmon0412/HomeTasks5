@@ -7,7 +7,7 @@ public class EmailTemplate : NotificationTemplate
 {
     public EmailTemplate()
     {
-        NotificationType = Type.Email;
+        Type = Type.Email;
     }
 
     public string Subject { get; set; } = default!;
