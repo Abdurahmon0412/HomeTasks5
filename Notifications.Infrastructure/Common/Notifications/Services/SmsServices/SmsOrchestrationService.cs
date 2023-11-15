@@ -1,8 +1,9 @@
-﻿using Notifications.Application.Commoon.Notifications.Services;
+﻿using AutoMapper;
+using Notifications.Application.Commoon.Notifications.Models;
+using Notifications.Application.Commoon.Notifications.Services;
 using Notifications.Application.Commoon.Notifications.Services.SmsServices;
 using Notifications.Domain.Common.Extensions;
 using Notifications.Domain.Entities;
-using Notifications.Domain.Enums;
 using Notifications.Domain.Extensions;
 
 namespace Notifications.Infrastructure.Common.Notifications.Services.SmsServices;
@@ -12,59 +13,53 @@ public class SmsOrchestrationService : ISmsOrchestrationService
     private readonly ISmsSenderService _smsSenderService;
     private readonly ISmsRenderService _smsRenderService;
     private readonly ISmsHistoryService _smsHistoryService;
+    private readonly ISmsTemplateService _smsTemplateService;
+    private readonly IMapper _mapper;
 
     public SmsOrchestrationService(
-        ISmsSenderService smsSenderService, 
+        IMapper mapper,
+        ISmsTemplateService smsTemplateService,
+        ISmsSenderService smsSenderService,
         ISmsRenderService smsRenderService,
         ISmsHistoryService smsHistoryService)
     {
         _smsSenderService = smsSenderService;
         _smsRenderService = smsRenderService;
         _smsHistoryService = smsHistoryService;
+        _smsTemplateService = smsTemplateService;
     }
 
 
     public async ValueTask<FuncResult<bool>> SendAsync(
-        string  senderPhoneNumber,
-        string receiverPhoneNumber, NotificationTemplateType templateType, 
-        Dictionary<string, string> variables, 
+        SmsNotificationRequest smsNotificationRequest,
+        // string  senderPhoneNumber,
+        // string receiverPhoneNumber, NotificationTemplateType templateType, 
+        // Dictionary<string, string> variables, 
         CancellationToken cancellationToken = default)
     {
         // validate
 
-        var test = async () =>
+        var sendNotificationRequest = async () =>
         {
-            var template = GetTemplate(templateType);
+            var message = _mapper.Map<SmsMessage>(smsNotificationRequest);
 
-            var message = _smsRenderService.RenderMessage(template, variables);
+            message.Template =
+                await _smsTemplateService
+                    .GetByTypeAsync(
+                        smsNotificationRequest.TemplateType, 
+                        true, cancellationToken);
 
-            await _smsSenderService.SendAsync(senderPhoneNumber, receiverPhoneNumber, message, cancellationToken);
+            await _smsRenderService.RenderAsync(message, cancellationToken);
+            
+            await _smsSenderService.SendAsync(message, cancellationToken);
 
-            var smsHistory = new SmsHistory
-            {
-                SenderPhoneNumber = senderPhoneNumber,
-                ReceiverPhoneNumber = receiverPhoneNumber,
-                Content = message,
-                Type = NotificationType.Sms,
-            };
-
-            await _smsHistoryService.CreateAsync(smsHistory, true, cancellationToken);
-
-            return true;
+            var history = _mapper.Map<SmsHistory>(message);
+            
+            await _smsHistoryService.CreateAsync(history, cancellationToken: cancellationToken);
+            
+            return history.IsSuccessful;
         };
 
-        return await test.GetValueAsync();
-    }
-
-    public static string GetTemplate(NotificationTemplateType templateType)
-    {
-        var template = templateType switch
-        {
-            NotificationTemplateType.SystemWelcomeNotification => "Welcome to the system, {{UserName}}",
-            NotificationTemplateType.EmailVerificationNotification => "Verify your email by clicking the link, {{VerificationLink}}",
-            _ => throw new ArgumentOutOfRangeException(nameof(templateType), "")
-        };
-
-        return template;
+        return await sendNotificationRequest.GetValueAsync();
     }
 }

@@ -6,6 +6,7 @@ using Notifications.Application.Commoon.Querying.Extensions;
 using Notifications.Domain.Entities;
 using Notifications.Persistance.Repositories.Interfaces;
 using System.Linq.Expressions;
+using Notifications.Domain.Enums;
 
 namespace Notifications.Infrastructure.Common.Notifications.Services.SmsServices;
 
@@ -23,12 +24,17 @@ public class SmsTemplateService : ISmsTemplateService
         _smsTemplateValidator = validator;
     }
 
+    public async ValueTask<SmsTemplate?> GetByTypeAsync(
+        NotificationTemplateType templateType,
+        bool asNoTracking = false,
+        CancellationToken cancellationToken = default
+    ) =>
+        await _smsTemplateRepository.Get(template => template.TemplateType == templateType, asNoTracking)
+            .SingleOrDefaultAsync(cancellationToken);
 
-    public IQueryable<SmsTemplate> Get(Expression<Func<SmsTemplate, bool>>? predicate = null, bool asNoTracking = false)
-        => _smsTemplateRepository.Get(predicate, asNoTracking);
 
     public async ValueTask<IList<SmsTemplate>> GetByFilterAsync(FilterPagination paginationOptions, bool asNoTracking = false, CancellationToken cancellationToken = default)
-        => await Get(asNoTracking: asNoTracking)
+        => await _smsTemplateRepository.Get(asNoTracking: asNoTracking)
         .ApplyPagination(paginationOptions)
         .ToListAsync(cancellationToken: cancellationToken);
 

@@ -6,6 +6,7 @@ using Notifications.Application.Commoon.Querying.Extensions;
 using Notifications.Domain.Entities;
 using Notifications.Persistance.Repositories.Interfaces;
 using System.Linq.Expressions;
+using Notifications.Domain.Enums;
 
 namespace Notifications.Infrastructure.Common.Notifications.Services.EmailServices;
 
@@ -23,18 +24,19 @@ public class EmailTemplateService : IEmailtemplateService
         _emailTemplateValidator = emailTemplateValidator;
     }
 
-    public IQueryable<EmailTemplate> Get(
-        Expression<Func<EmailTemplate, bool>>? predicate = default,
-        bool asNoTracking = false
-    ) =>
-        _emailTemplateRepository.Get(predicate, asNoTracking);
+
+    public ValueTask<EmailTemplate?> GetByTypeAsync(NotificationTemplateType templateType, bool asNoTracking = false,
+        CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
+    }
 
     public async ValueTask<IList<EmailTemplate>> GetByFilterAsync(
         FilterPagination paginationOptions,
         bool asNoTracking = false,
         CancellationToken cancellationToken = default
     ) =>
-        await Get(asNoTracking: asNoTracking)
+        await _emailTemplateRepository.Get()
             .ApplyPagination(paginationOptions)
             .ToListAsync(cancellationToken: cancellationToken);
 
