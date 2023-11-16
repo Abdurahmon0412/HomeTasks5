@@ -2,6 +2,7 @@
 
 public enum NotificationTemplateType
 {
-    SystemWelcomeNotification,
-    EmailVerificationNotification
+    SystemWelcomeNotification = 0,
+    EmailVerificationNotification = 1,
+    ReferralNotification = 2
 }

@@ -19,6 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Blogs.Persistance\Blogs.Persistance.csproj" />
       <ProjectReference Include="..\Notifications.Domain\Notifications.Domain.csproj" />
     </ItemGroup>
 
