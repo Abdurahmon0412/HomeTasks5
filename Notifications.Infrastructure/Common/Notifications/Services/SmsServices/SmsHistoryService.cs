@@ -12,13 +12,10 @@ namespace Notifications.Infrastructure.Common.Notifications.Services.SmsServices
 public class SmsHistoryService : ISmsHistoryService
 {
     private readonly ISmsHistoryRepository _smsHistoryRepository;
-    private readonly IValidator<SmsHistory> _smsHistoryValidator;
-
-    public SmsHistoryService(ISmsHistoryRepository smsHistoryRepository,
-        IValidator<SmsHistory> validator)
+    
+    public SmsHistoryService(ISmsHistoryRepository smsHistoryRepository)
     {
         _smsHistoryRepository = smsHistoryRepository;
-        _smsHistoryValidator = validator;
     }
 
     public IQueryable<SmsHistory> Get(Expression<Func<SmsHistory, bool>>? predicate = null, bool asNoTracking = false)
@@ -30,11 +27,5 @@ public class SmsHistoryService : ISmsHistoryService
         .ToListAsync(cancellationToken: cancellationToken);
 
     public ValueTask<SmsHistory> CreateAsync(SmsHistory smsHistory, bool saveChanges = true, CancellationToken cancellationToken = default)
-    {
-        var validationResult = _smsHistoryValidator.Validate(smsHistory);
-        if (!validationResult.IsValid)
-            throw new InvalidOperationException();
-
-        return _smsHistoryRepository.CreateAsync(smsHistory, saveChanges, cancellationToken);
-    }
+        => _smsHistoryRepository.CreateAsync(smsHistory, saveChanges, cancellationToken);
 }

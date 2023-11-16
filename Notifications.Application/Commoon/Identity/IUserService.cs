@@ -14,5 +14,5 @@ public interface IUserService
     ValueTask<User?> GetByIdAsync(
         Guid userId,
         bool asNoTracking = false,
-        CancellationToken cancellation = default);
+        CancellationToken cancellationToken = default);
 }

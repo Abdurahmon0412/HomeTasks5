@@ -5,7 +5,7 @@ using Notifications.Domain.Enums;
 
 namespace Notifications.Application.Commoon.Notifications.Services;
 
-public interface IEmailtemplateService
+public interface IEmailTemplateService
 {
     ValueTask<EmailTemplate?> GetByTypeAsync(
         NotificationTemplateType templateType,

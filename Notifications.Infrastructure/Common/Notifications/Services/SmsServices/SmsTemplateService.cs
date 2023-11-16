@@ -5,7 +5,6 @@ using Notifications.Application.Commoon.Notifications.Services;
 using Notifications.Application.Commoon.Querying.Extensions;
 using Notifications.Domain.Entities;
 using Notifications.Persistance.Repositories.Interfaces;
-using System.Linq.Expressions;
 using Notifications.Domain.Enums;
 
 namespace Notifications.Infrastructure.Common.Notifications.Services.SmsServices;
@@ -44,7 +43,7 @@ public class SmsTemplateService : ISmsTemplateService
     {
         var validationResult = _smsTemplateValidator.Validate(smsTemplate);
         if(!validationResult.IsValid)
-            throw new Exception(validationResult.Errors.ToString());
+            throw new ValidationException(validationResult.Errors);
 
         return _smsTemplateRepository.CreateAsync(smsTemplate, saveChanges, cancellationToken);
     }

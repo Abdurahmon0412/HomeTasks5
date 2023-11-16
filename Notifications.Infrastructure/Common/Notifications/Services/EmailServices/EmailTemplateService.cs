@@ -5,12 +5,11 @@ using Notifications.Application.Commoon.Notifications.Services;
 using Notifications.Application.Commoon.Querying.Extensions;
 using Notifications.Domain.Entities;
 using Notifications.Persistance.Repositories.Interfaces;
-using System.Linq.Expressions;
 using Notifications.Domain.Enums;
 
 namespace Notifications.Infrastructure.Common.Notifications.Services.EmailServices;
 
-public class EmailTemplateService : IEmailtemplateService
+public class EmailTemplateService : IEmailTemplateService
 {
     private readonly IEmailTemplateRepository _emailTemplateRepository;
     private readonly IValidator<EmailTemplate> _emailTemplateValidator;
@@ -25,11 +24,13 @@ public class EmailTemplateService : IEmailtemplateService
     }
 
 
-    public ValueTask<EmailTemplate?> GetByTypeAsync(NotificationTemplateType templateType, bool asNoTracking = false,
-        CancellationToken cancellationToken = default)
-    {
-        throw new NotImplementedException();
-    }
+    public async ValueTask<EmailTemplate?> GetByTypeAsync(
+        NotificationTemplateType templateType,
+        bool asNoTracking = false,
+        CancellationToken cancellationToken = default
+    ) =>
+        await _emailTemplateRepository.Get(template => template.TemplateType == templateType, asNoTracking)
+            .SingleOrDefaultAsync(cancellationToken);
 
     public async ValueTask<IList<EmailTemplate>> GetByFilterAsync(
         FilterPagination paginationOptions,

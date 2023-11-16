@@ -1,6 +1,7 @@
 ﻿using Notifications.Application.Commoon.Notifications.Brokers;
 using Notifications.Application.Commoon.Notifications.Models;
 using Notifications.Application.Commoon.Notifications.Services;
+using Notifications.Domain.Extensions;
 
 namespace Notifications.Infrastructure.Common.Notifications.Services.SmsServices;
 
@@ -8,31 +9,24 @@ public class SmsSenderService : ISmsSenderService
 {
     private readonly IEnumerable<ISmsSenderBroker> _smsSenderBrokers;
 
-    public SmsSenderService(IEnumerable<ISmsSenderBroker> smsSenderBrokers) => 
+    public SmsSenderService(IEnumerable<ISmsSenderBroker> smsSenderBrokers)
+    {
         _smsSenderBrokers = smsSenderBrokers;
+    }
 
-    public  ValueTask<bool> SendAsync(SmsMessage smsMessage,
+    public async ValueTask<bool> SendAsync(SmsMessage smsMessage,
         CancellationToken cancellationToken)
     {
-        var result = false;
+        foreach (var sms in _smsSenderBrokers)
+        {
+            var sendNotificationTask = () => sms.SendAsync(smsMessage, cancellationToken);
+            var result = await sendNotificationTask.GetValueAsync();
 
-        // foreach(var smsSenderBroker  in _smsSenderBrokers)
-        // {
-        //     try
-        //     {
-        //         result = await smsSenderBroker.SendAsync(
-        //             senderPhoneNumber,
-        //             receiverPhoneNumber,
-        //             message,
-        //             cancellationToken);
-        //         if (result) return result;
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         // bu yerda logni o'tsak yozaman
-        //     }
-        // }
+            smsMessage.IsSuccessful = result.IsSuccess;
+            smsMessage.ErrorMessage = result.Exception?.Message;
+            return result.IsSuccess;
+        }
 
-        return new(result);
+        return false;
     }
 }
