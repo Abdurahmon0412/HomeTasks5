@@ -6,8 +6,6 @@ namespace Notifications.Application.Commoon.Notifications.Services;
 
 public interface IEmailHistoryService
 {
-    IQueryable<EmailHistory> Get(Expression<Func<EmailHistory, bool>>? predicate = default, bool asNoTracking = false);
-
     ValueTask<IList<EmailHistory>> GetByFilterAsync(
         FilterPagination paginationOptions,
         bool asNoTracking = false,
