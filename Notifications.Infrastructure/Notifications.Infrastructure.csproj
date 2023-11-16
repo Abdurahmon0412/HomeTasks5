@@ -17,8 +17,4 @@
       <PackageReference Include="Twilio" Version="7.0.0-rc.1" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Common\Settings" />
-    </ItemGroup>
-
 </Project>

@@ -1,10 +1,10 @@
-﻿namespace Notifications.Application.Commoon.Notifications.Brokers;
+﻿using Notifications.Application.Commoon.Notifications.Models;
+
+namespace Notifications.Application.Commoon.Notifications.Brokers;
 
 public interface IEmailSenderBroker
 {
     ValueTask<bool> SendAsync(
-        string senderEmailAddress,
-        string receiverEmailAddress,
-        string message,
+        EmailMessage emailMessage,
         CancellationToken cancellationToken = default);
 }
