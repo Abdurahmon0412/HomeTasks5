@@ -9,11 +9,23 @@ public class User : IEntity
 
     public string UserName { get; set; } = default!;
     
+    public string FirstName { get; set; } = default!;
+    
+    public string LastName { get; set; } = default!;
+    
+    public int Age { get; set; }
+    
+    public string PasswordHash { get; set; } = default!;
+    
+    public bool IsEmailAddressVerified {get; set; }
+    
     public string PhoneNumber { get; set; } = default!;
     
     public string EmailAddress { get; set; } = default!;
     
-    public  RoleType Role { get; set; }
+    public  Guid RoleId { get; set; } = default!;
+    
+    public virtual Role Role { get; set;} 
     
     public UserSettings UserSettings { get; set; }
 }

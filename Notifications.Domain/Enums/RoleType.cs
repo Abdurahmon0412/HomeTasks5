@@ -3,5 +3,6 @@
 public enum RoleType
 {
     User = 0,
-    System = 1
+    System = 1,
+    Admin
 }

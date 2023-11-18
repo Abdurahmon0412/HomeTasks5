@@ -100,7 +100,8 @@ public static class SeedDataExtensions
                 UserName = "System",
                 PhoneNumber = "+12132931337",
                 EmailAddress = "sultonbek.rakhimov.recovery@gmail.com",
-                Role = RoleType.System
+                //bu yerni to'girlash kerak
+                RoleId = new Guid("123456789")
             },
             new User
             {
