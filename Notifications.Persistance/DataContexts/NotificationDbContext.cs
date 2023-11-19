@@ -16,6 +16,10 @@ public class NotificationDbContext : DbContext
     public DbSet<User> Users => Set<User>();
     
     public DbSet<UserSettings> UsersSettings => Set<UserSettings>();
+    
+    public DbSet<Role> Roles => Set<Role>();
+    
+    public DbSet<AccessToken> AccessTokens => Set<AccessToken>();
 
     public NotificationDbContext(DbContextOptions<NotificationDbContext> options ) : base( options )
     {

@@ -1,5 +1,4 @@
 ﻿using Notifications.Domain.Common.Entities;
-using Notifications.Domain.Enums;
 
 namespace Notifications.Domain.Entities;
 

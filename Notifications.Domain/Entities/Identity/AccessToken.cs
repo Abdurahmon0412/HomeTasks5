@@ -1,5 +1,8 @@
 ﻿namespace Notifications.Domain.Entities;
 
+/// <summary>
+/// Access Token Service
+/// </summary>
 public class AccessToken
 {
     public Guid Id { get; set; }
